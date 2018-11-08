@@ -9,3 +9,5 @@ I think we should decide an a theme for the game (Cyberpunk city, medevial castl
 we can base some of the mechanics and art style off of the theme (eaiser yo)
 
 The project's checklist(what we should be doing) is in the projects tab.
+
+BTW I'm gonna send this to Jason Leigh so he can see who's slacking off XD
