@@ -8,16 +8,20 @@ public class Main {
 	//All of the initialization goes here 
 	public static void setup(){
 		EZ.initialize(RES_X, RES_Y);
-		player = new Player();
+		player = new Player("placeHolderLeft.png","placeHolderRight.png",RES_X/2,RES_Y/2);
+	}
+	
+	public static void update() {
+		player.update();
 	}
 
 	//Main part of the program
 	public static void main(String[] args) {
 		setup();
-		
+
 		
 		while (true) {
-			
+			update();
 			
 			//Do not change the refresh
 			EZ.refreshScreen();
