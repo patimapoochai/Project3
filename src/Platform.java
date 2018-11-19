@@ -7,11 +7,11 @@ public class Platform {
 	
 	EZImage picture;
 	
-	Random random = new Random();
+	// Random random = new Random();
 	
-	Platform (String filename, Player player){
-		posX = 1024/2; //random.nextInt(1024);
-		posY = 600; //random.nextInt(768);
+	Platform (String filename, Player player, int posX, int posY){
+		this.posX = posX; //random.nextInt(1024);
+		this.posY = posY; //random.nextInt(768);
 		
 		picture = EZ.addImage(filename, posX, posY);
 		
