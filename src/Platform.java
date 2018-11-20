@@ -1,12 +1,8 @@
-import java.util.Random;
-
 public class Platform {
-	int posX;
-	int posY;
+	protected int posX;
+	protected int posY;
 	Player player;
-	
 	EZImage picture;
-	
 	// Random random = new Random();
 	
 	Platform (String filename, Player player, int posX, int posY){
