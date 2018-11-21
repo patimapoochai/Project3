@@ -18,6 +18,14 @@ public class Platform {
 		playerCollision();
 	}
 	
+	public int getPosY() {
+		return posY;
+	}
+	
+	public int getPosX() {
+		return posX;
+	}
+	
 	//if the platform is touching player
 	private boolean isInPlayer() {
 		if (feetTouching(player.getFeetPoints())) {

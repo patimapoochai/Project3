@@ -63,7 +63,7 @@ public class Player {
 	// set the image to certain x and y value
 	private void setImagePosition(int posx, int posy) {
 		playerLeft.translateTo(posx, posy);
-		playerRight.translateTo(posX, posY);
+		playerRight.translateTo(posx, posy);
 	}
 
 	// is the player touching the x and y point?
@@ -159,6 +159,10 @@ public class Player {
 	
 	public int[][] getFeetPoints() {
 		return feet;
+	}
+	
+	public int getLegsLength() {
+		return playerLeft.getHeight()/2;
 	}
 
 }
