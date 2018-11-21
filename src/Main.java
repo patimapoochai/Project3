@@ -16,7 +16,7 @@ public class Main {
 		EZ.initialize(RES_X, RES_Y);
 		player = new Player("placeHolderLeft.png","placeHolderRight.png",RES_X/2,RES_Y/2-300);
 		
-		// test = new Platform("platform.png", player);
+		test = new Platform("platform.png", player,RES_X/2,RES_Y/2 + 200);
 		
 		for (int i = 100; i < 600; i = i + 100)
 		{
@@ -24,7 +24,7 @@ public class Main {
 			platforms.add(platform);
 		}
 		
-		//Background background = new Background("grid.jpg", RES_X, RES_Y);
+		// Background background = new Background("grid.jpg", RES_X, RES_Y);
 		
 		
 	}
@@ -33,6 +33,7 @@ public class Main {
 		player.update();
 		for (Platform i : platforms)
 			i.update();
+		test.update();
 	}
 
 	//Main part of the program

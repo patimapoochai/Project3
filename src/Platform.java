@@ -1,8 +1,8 @@
 public class Platform {
 	protected int posX;
 	protected int posY;
-	Player player;
-	EZImage picture;
+	protected Player player;
+	protected EZImage picture;
 	// Random random = new Random();
 	
 	Platform (String filename, Player player, int posX, int posY){
@@ -20,7 +20,7 @@ public class Platform {
 	
 	//if the platform is touching player
 	private boolean isInPlayer() {
-		if (feetTouching()) {
+		if (feetTouching(player.getFeetPoints())) {
 			return true;
 		} else {
 			return false;
@@ -34,12 +34,19 @@ public class Platform {
 		}
 	}
 	
+	
 	//if the bottom points are inside the platforms
-	private boolean feetTouching() { //what a lewd name huh?
-		if (picture.isPointInElement(player.feetX, player.feetY) || picture.isPointInElement(player.feetLeftX, player.feetLeftY) || picture.isPointInElement(player.feetRightX, player.feetRightY)) {
-			return true;
-		} else {
-			return false;
+	private boolean feetTouching(int[][] array) { //what a lewd name huh?
+		boolean state = false;
+		
+		for (int col = 0;col < 3;col++) {
+			if (picture.isPointInElement(array[col][0], array[col][1])) {
+				state = true;
+			} else {
+				state = false;
+			}
 		}
+		
+		return state;
 	}
 }

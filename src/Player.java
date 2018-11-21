@@ -1,11 +1,11 @@
 
 public class Player {
 	// how fast the player falls (always positive)
-	static final int GRAVITY = 1;
+	private static final int GRAVITY = 1;
 	// overall bounce multiply-er (always positive)
-	static final int RATE = 2;
+	private static final int RATE = 2;
 	//player strafe speed
-	static final int SPEED = 20;
+	private static final int SPEED = 20;
 
 	// positions
 	int posX;
@@ -14,23 +14,16 @@ public class Player {
 	// is the player moving?
 	boolean moving;
 	// images
-	EZImage playerLeft;
-	EZImage playerRight;
+	private EZImage playerLeft;
+	private EZImage playerRight;
 
-	int verticalVelocity;
-
-	// left-bottom most point of the image
-	int feetLeftX;
-	int feetLeftY;
-	// right-bottom most point of the image
-	int feetRightX;
-	int feetRightY;
-	// middle-bottom most point of the image
-	int feetX;
-	int feetY;
+	private int verticalVelocity;
+	
+	//row is the left, middle, right points(left to right). col is x, y (top to bottom)
+	private int[][] feet = new int[3][2];
 
 	// this would keep the turn state. true is right, false is left
-	boolean turnState;
+	private boolean turnState;
 
 	Player(String imageLeft, String imageRight, int x, int y) {
 		// set position
@@ -51,7 +44,7 @@ public class Player {
 	}
 
 	// anything that need to be updated each frame
-	void update() {
+	public void update() {
 		isMoving();
 		movement();
 		facingDirection();
@@ -83,7 +76,7 @@ public class Player {
 	}
 
 	// return if any key is pressed
-	void isMoving() {
+	private void isMoving() {
 		if (EZInteraction.isKeyDown('w') || EZInteraction.isKeyDown('a') || EZInteraction.isKeyDown('s')
 				|| EZInteraction.isKeyDown('d')) {
 			moving = true;
@@ -93,20 +86,20 @@ public class Player {
 	}
 
 	// translation movement
-	public void moveLeft(int step) {
+	private void moveLeft(int step) {
 		posX = posX - step;
 		setImagePosition(posX, posY);
 		turnState = false;
 	}
 
-	public void moveRight(int step) {
+	private void moveRight(int step) {
 		posX = posX + step;
 		setImagePosition(posX, posY);
 		turnState = true;
 	}
 
 	// determine which side the player is facing
-	void facingDirection() {
+	private void facingDirection() {
 		if (turnState) {
 			playerRight.show();
 			playerLeft.hide();
@@ -154,14 +147,18 @@ public class Player {
 	
 	//update the bottom collision points
 	private void bottomPoints() {
-		feetLeftX = posX - (playerLeft.getWidth()/2);
-		feetLeftY = posY + (playerLeft.getHeight()/2);
+		feet[0][0] = posX - (playerLeft.getWidth()/2);
+		feet[0][1] = posY + (playerLeft.getHeight()/2);
 		
-		feetRightX = posX + (playerLeft.getWidth()/2);
-		feetRightY = posY + (playerLeft.getHeight()/2);
+		feet[1][0] = posX + (playerLeft.getWidth()/2);
+		feet[1][0] = posY + (playerLeft.getHeight()/2);
 		
-		feetX = posX;
-		feetY = posY + (playerLeft.getHeight()/2);
+		feet[2][0] = posX;
+		feet[2][1] = posY + (playerLeft.getHeight()/2);
+	}
+	
+	public int[][] getFeetPoints() {
+		return feet;
 	}
 
 }
