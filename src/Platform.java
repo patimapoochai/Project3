@@ -1,6 +1,6 @@
 public class Platform {
-	protected int posX;
-	protected int posY;
+	protected final int posX;
+	protected final int posY;
 	protected Player player;
 	protected EZImage picture;
 	// Random random = new Random();
@@ -24,6 +24,11 @@ public class Platform {
 	
 	public int getPosX() {
 		return posX;
+	}
+	
+	public void scroll(int length)
+	{
+		this.picture.translateBy(0, length);
 	}
 	
 	//if the platform is touching player
