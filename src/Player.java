@@ -8,11 +8,10 @@ public class Player {
 	private static final int SPEED = 20;
 
 	// positions
-	int posX;
-	int posY;
-	int speed;
+	private int posX;
+	private int posY;
 	// is the player moving?
-	boolean moving;
+	private boolean moving;
 	// images
 	private EZImage playerLeft;
 	private EZImage playerRight;
@@ -157,10 +156,12 @@ public class Player {
 		feet[2][1] = posY + (playerLeft.getHeight()/2);
 	}
 	
+	//return the bottom points array
 	public int[][] getFeetPoints() {
 		return feet;
 	}
 	
+	//return the y-axis length from middle to bottom point of the image
 	public int getLegsLength() {
 		return playerLeft.getHeight()/2;
 	}

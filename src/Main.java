@@ -3,6 +3,7 @@ import java.util.Random;
 
 
 public class Main {
+	//don't restric these variables
 	static final int RES_X = 1024;
 	static final int RES_Y = 768;
 	static Player player;
@@ -36,7 +37,7 @@ public class Main {
 			}
 		}
 		
-		//spawn player on top of a platform
+		//spawn player on top of the lowest platform platform
 		player.setPosition(lowestX, lowestY - (player.getLegsLength()+20));
 		
 		// Background background = new Background("grid.jpg", RES_X, RES_Y);
@@ -47,9 +48,24 @@ public class Main {
 	//all the update goes here
 	public static void update() {
 		player.update();
-		for (Platform i : platforms)
+		for (Platform i : platforms) {
 			i.update();
+		}
+		testOnScreen();
+		
 		//test.update();
+	}
+	
+	//for testing how many platform are on screen
+	public static void testOnScreen() {
+		int index = 0;
+		for (Platform i : platforms) {
+			System.out.print( index + "is " + i.getOffScreen() + " ");
+			System.out.println("");
+			index++;
+		}
+		
+		index = 0;
 	}
 
 	//Main part of the program

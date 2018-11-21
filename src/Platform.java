@@ -4,6 +4,7 @@ public class Platform {
 	protected Player player;
 	protected EZImage picture;
 	// Random random = new Random();
+	private boolean isOffScreen;
 	
 	Platform (String filename, Player player, int posX, int posY){
 		this.posX = posX; //random.nextInt(1024);
@@ -16,6 +17,7 @@ public class Platform {
 	
 	public void update(){
 		playerCollision();
+		offScreenDetection();
 	}
 	
 	public int getPosY() {
@@ -56,5 +58,19 @@ public class Platform {
 		}
 		
 		return state;
+	}
+	
+	//return true the platform is on screen
+	private void offScreenDetection() {
+		if ((posX > 0 && posX < Main.RES_X)||(posY > 0 && posY < Main.RES_Y) == false) {
+			isOffScreen = true;
+		} else {
+			isOffScreen = false;
+		}
+	}
+	
+	//return the on-screen state
+	public boolean getOffScreen() {
+		return isOffScreen;
 	}
 }
