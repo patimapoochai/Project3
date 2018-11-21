@@ -10,11 +10,13 @@ public class Main {
 	static Platform test;
 	static ArrayList<Platform> platforms = new ArrayList();
 	static Random rand = new Random();
+	static Background background;
 	
 	
 	//All of the initialization goes here 
 	public static void setup(){
 		EZ.initialize(RES_X, RES_Y);
+		//Background background = new Background("biggrid.jpg", RES_X, RES_Y);
 		player = new Player("placeHolderLeft.png","placeHolderRight.png",RES_X/2,RES_Y/2-300);
 		
 		//test = new Platform("platform.png", player,RES_X/2,RES_Y/2 + 200);
@@ -40,7 +42,7 @@ public class Main {
 		//spawn player on top of the lowest platform platform
 		player.setPosition(lowestX, lowestY - (player.getLegsLength()+20));
 		
-		// Background background = new Background("grid.jpg", RES_X, RES_Y);
+		background = new Background("biggrid.jpg", RES_X, RES_Y);
 		
 		
 	}
@@ -54,6 +56,9 @@ public class Main {
 		testOnScreen();
 		
 		//test.update();
+		background.scroll();
+		for (Platform i : platforms)
+			i.scroll(1);
 	}
 	
 	//for testing how many platform are on screen

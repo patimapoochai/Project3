@@ -5,24 +5,26 @@ public class Background
 	protected EZImage wallpaper;
 	protected EZImage wallpaper2;
 	protected int RES_X;
-	protected int RES_Y;
-	
-	public static void main(String[] args)
-	{
-		
-	}
+	protected final int RES_Y;
 	
 	public Background(String file, int RES_X, int RES_Y)
 	{
 		this.RES_X = RES_X;
 		this.RES_Y = RES_Y;
-		this.wallpaper = new EZImage(file, RES_X, RES_Y);
-		this.wallpaper2 = new EZImage(file, RES_X * 2, RES_Y);
+		this.wallpaper = EZ.addImage(file, this.RES_X/2, this.RES_Y/2);
+		this.wallpaper2 = EZ.addImage(file, this.RES_X/2, this.RES_Y + (this.RES_Y / 2));
+		this.wallpaper.pushToBack();
+		this.wallpaper2.pushToBack();
 	}
 	
 	public void scroll()
 	{
-		this.wallpaper.translateBy(this.RES_X, RES_Y--);
+		this.wallpaper.translateBy(0, 1);
+		this.wallpaper2.translateBy(0, 1);
+		if (this.wallpaper.getYCenter() >= this.RES_Y)
+			this.wallpaper.translateTo(this.RES_X/2, 0);
+		if (this.wallpaper.getYCenter() >= this.RES_Y)
+			this.wallpaper.translateTo(this.RES_X/2, 0);
 	}
 	
 	public void replacePlatform(ArrayList<Platform> platforms)
