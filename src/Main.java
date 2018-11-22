@@ -65,7 +65,7 @@ public class Main {
 	public static void testOnScreen() {
 		int index = 0;
 		for (Platform i : platforms) {
-			System.out.print( index + "is " + i.getOffScreen() + " ");
+			System.out.print( index + "is " + i.getOnScreen() + " ");
 			System.out.println("");
 			index++;
 		}

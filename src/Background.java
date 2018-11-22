@@ -4,7 +4,7 @@ public class Background
 {
 	protected EZImage wallpaper;
 	protected EZImage wallpaper2;
-	protected int RES_X;
+	protected final int RES_X;
 	protected final int RES_Y;
 	
 	public Background(String file, int RES_X, int RES_Y)

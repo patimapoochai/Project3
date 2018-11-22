@@ -1,10 +1,10 @@
 public class Platform {
-	protected final int posX;
-	protected final int posY;
+	protected int posX;
+	protected int posY;
 	protected Player player;
 	protected EZImage picture;
 	// Random random = new Random();
-	private boolean isOffScreen;
+	private boolean isOnScreen;
 	
 	Platform (String filename, Player player, int posX, int posY){
 		this.posX = posX; //random.nextInt(1024);
@@ -17,7 +17,7 @@ public class Platform {
 	
 	public void update(){
 		playerCollision();
-		offScreenDetection();
+		onScreenDetection();
 	}
 	
 	public int getPosY() {
@@ -30,7 +30,9 @@ public class Platform {
 	
 	public void scroll(int length)
 	{
-		this.picture.translateBy(0, length);
+		//this.posX = this.picture.getXCenter();
+		this.posY = this.picture.getYCenter() + length;
+		this.picture.translateTo(this.posX, this.posY);
 	}
 	
 	//if the platform is touching player
@@ -66,16 +68,16 @@ public class Platform {
 	}
 	
 	//return true the platform is on screen
-	private void offScreenDetection() {
-		if ((posX > 0 && posX < Main.RES_X)||(posY > 0 && posY < Main.RES_Y) == false) {
-			isOffScreen = true;
+	private void onScreenDetection() {
+		if ((posY < Main.RES_Y)) {
+			isOnScreen = true;
 		} else {
-			isOffScreen = false;
+			isOnScreen = false;
 		}
 	}
 	
 	//return the on-screen state
-	public boolean getOffScreen() {
-		return isOffScreen;
+	public boolean getOnScreen() {
+		return isOnScreen;
 	}
 }
