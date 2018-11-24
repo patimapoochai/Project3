@@ -11,21 +11,24 @@ public class Main {
 	static ArrayList<Platform> platforms = new ArrayList();
 	static Random rand = new Random();
 	static Background background;
+	static Enemy eTest;
 	
 	
 	//All of the initialization goes here 
 	public static void setup(){
 		EZ.initialize(RES_X, RES_Y);
 		//Background background = new Background("biggrid.jpg", RES_X, RES_Y);
-		player = new Player("placeHolderLeft.png","placeHolderRight.png",RES_X/2,RES_Y/2-300);
+		player = new Player("jumping_left.png","jumping_right.png",RES_X/2,RES_Y/2-300);
 		
 		//test = new Platform("platform.png", player,RES_X/2,RES_Y/2 + 200);
 		
 		for (int i = 100; i < 600; i = i + 100)
 		{
-			Platform platform = new Platform("platform.png", player, rand.nextInt(RES_Y - 30) + 30, i);
+			Platform platform = new Platform("platform2.png", player, rand.nextInt(RES_Y - 30) + 30, i);
 			platforms.add(platform);
 		}
+		
+		eTest = new Enemy("enemyPH.png", platforms, true);
 		
 		//variables for lowest platform calculation
 		int lowestY = 0;
@@ -53,19 +56,22 @@ public class Main {
 		for (Platform i : platforms) {
 			i.update();
 		}
-		testOnScreen();
+		
+		eTest.update(player);
 		
 		//test.update();
 		background.scroll();
 		for (Platform i : platforms)
 			i.scroll(1);
+		
+		//System.out.println(eTest.animFrame);
 	}
 	
 	//for testing how many platform are on screen
 	public static void testOnScreen() {
 		int index = 0;
 		for (Platform i : platforms) {
-			System.out.print( index + "is " + i.getOnScreen() + " ");
+			System.out.print( index + "is " + i.getOnScreenStatus() + " ");
 			System.out.println("");
 			index++;
 		}
