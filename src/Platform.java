@@ -20,12 +20,10 @@ public class Platform {
 		onScreenDetection();
 	}
 	
-	//return y position
 	public int getPosY() {
 		return posY;
 	}
 	
-	//return x position
 	public int getPosX() {
 		return posX;
 	}
@@ -78,8 +76,13 @@ public class Platform {
 		}
 	}
 	
+	public void close()
+	{
+		EZ.removeEZElement(picture);
+	}
+	
 	//return the on-screen state
-	public boolean getOnScreenStatus() {
+	public boolean getOnScreen() {
 		return isOnScreen;
 	}
 }
