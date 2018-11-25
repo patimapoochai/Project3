@@ -5,8 +5,10 @@ public class Graphic {
 	protected int posX;
 	protected int posY;
 	
-	//is this element on screen?
+	//is this element below the screen?
+	protected boolean isBelowScreen;
 	protected boolean isOnScreen;
+	
 	
 	//the image
 	protected EZImage picture;
@@ -18,8 +20,10 @@ public class Graphic {
 		this.picture = EZ.addImage(filename, posX, posY);
 	}
 	
-	public void update() {
-		
+//	Must be run by sub-classes in updates
+	public void checks() {
+		isBelowScreenCheck();
+		isOnScreenCheck();
 	}
 	
 	public int getX() {
@@ -51,16 +55,28 @@ public class Graphic {
 	}
 	
 	//return if this element on screen
-	private void onScreenDetection() {
-		if ((posY < Main.RES_Y)) {
+	private void isBelowScreenCheck() {
+		if ((posY > Main.RES_Y + picture.getHeight()/2)) {
+			isBelowScreen = true;
+		} else {
+			isBelowScreen = false;
+		}
+	}
+	
+	//return the on-screen state
+	public boolean getBelowScreenStatus() {
+		return isBelowScreen;
+	}
+	
+	private void isOnScreenCheck() {
+		if ((posX > 0 - picture.getWidth()/2 && posX < Main.RES_X + picture.getWidth()/2) && (posY > 0 - picture.getHeight()/2 && posY < Main.RES_Y + picture.getHeight()/2)) {
 			isOnScreen = true;
 		} else {
 			isOnScreen = false;
 		}
 	}
 	
-	//return the on-screen state
-		public boolean getOnScreenStatus() {
-			return isOnScreen;
-		}
+	public boolean getOnScreenStatus() {
+		return isOnScreen;
+	}
 }

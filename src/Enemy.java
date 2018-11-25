@@ -14,11 +14,13 @@ public class Enemy extends Graphic {
 	//keep track of an animation's frame
 	public int animFrame;
 	//keep track of direction of an animation
-	int idleDirection = 1;
+	private int idleDirection = 1;
+	
+	private final int minimumForSuccess = 70;
 	
 	//
 	protected boolean wandering;
-	protected int WANDERING_SPEED = 7;
+	protected int wanderingSpeed = 7;
 	//constructor if you want a specific coordinate
 	Enemy(String filename,int x,int y,ArrayList<Platform> platformArray, boolean wanderingState){
 		super(filename, x, y);
@@ -44,19 +46,23 @@ public class Enemy extends Graphic {
 		if (wandering) {
 			wander();
 		}
+		super.checks();
 		set1Update(player.getImage().getWidth(), player.getImage().getHeight());
 		collisionCheck(player);
 		
-		
-		
+	}
+	
+	public void spawnOnPlatform(Platform platform) {
+		super.setPosition(platform.getPosX(), platform.getPosY()-60);
 	}
 	
 	//find a platform (need to add empty check)
 	private void findRandomPlatform() {
-		int index = random.nextInt(platforms.size()-1);
-		Platform platform = platforms.get(index);
-		super.setPosition(platform.getPosX(), platform.getPosY()-60);
+		//get a random number
+		int index = random.nextInt(platforms.toArray().length-1);
+		spawnOnPlatform(platforms.get(index));
 	}
+	
 	
 	//will make the input of scroll() such that the enemy float up and down
 	private double scrollWithAnimation(int length,int animSpeed) {
@@ -143,11 +149,22 @@ public class Enemy extends Graphic {
 		}
 	}
 	
+	//the enemy will move from left to right
 	protected void wander() {
 		if (posX > 1024 || posX < 0) {
-			WANDERING_SPEED = -WANDERING_SPEED;
+			wanderingSpeed = -wanderingSpeed;
 		}
 		
-		posX = posX + WANDERING_SPEED;
+		posX = posX + wanderingSpeed;
+	}
+	
+	public void spawnOnPlatformCreation(Platform platform) {
+		if (random.nextInt(99)+1 > minimumForSuccess) {
+			spawnOnPlatform(platform);
+		}
+	}
+	
+	public void remove() {
+		EZ.removeEZElement(picture);
 	}
 }

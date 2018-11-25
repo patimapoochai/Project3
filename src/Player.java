@@ -55,8 +55,8 @@ public class Player {
 		fall();
 		verticalVelocityUpdate();
 		bottomPoints();
-		System.out.println("PlayerHP: " + health);
-		System.out.println("Player: " + posX + ", " + posY);
+//		System.out.println("PlayerHP: " + health);
+//		System.out.println("Player: " + posX + ", " + posY);
 	}
 	
 	public EZImage getImage() {
