@@ -20,10 +20,12 @@ public class Platform {
 		onScreenDetection();
 	}
 	
+	// get Y position
 	public int getPosY() {
 		return posY;
 	}
 	
+	// get X position
 	public int getPosX() {
 		return posX;
 	}
@@ -82,7 +84,7 @@ public class Platform {
 	}
 	
 	//return the on-screen state
-	public boolean getOnScreen() {
+	public boolean getOnScreenStatus() {
 		return isOnScreen;
 	}
 }
