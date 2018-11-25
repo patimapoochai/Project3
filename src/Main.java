@@ -12,21 +12,24 @@ public class Main {
 	static Random rand = new Random();
 	static Background background;
 	static int difficulty;
+	static Enemy eTest;
 	
 	
 	//All of the initialization goes here 
 	public static void setup(){
 		EZ.initialize(RES_X, RES_Y);
 		//Background background = new Background("biggrid.jpg", RES_X, RES_Y);
-		player = new Player("placeHolderLeft.png","placeHolderRight.png",RES_X/2,RES_Y/2-300);
+		player = new Player("jumping_left.png","jumping_right.png",RES_X/2,RES_Y/2-300);
 		
 		//test = new Platform("platform.png", player,RES_X/2,RES_Y/2 + 200);
 		
 		for (int i = 100; i < 600; i = i + 100)
 		{
-			Platform platform = new Platform("platform.png", player, rand.nextInt(RES_Y - 30) + 30, i);
+			Platform platform = new Platform("platform2.png", player, rand.nextInt(RES_Y - 30) + 30, i);
 			platforms.add(platform);
 		}
+		
+		eTest = new Enemy("enemyPH.png", platforms, true);
 		
 		//variables for lowest platform calculation
 		int lowestY = 0;
@@ -67,20 +70,24 @@ public class Main {
 		}
 		//testOnScreen
 		
-		for (int i = 0; i < platforms.size(); i++)
+		eTest.update(player);
+		
+		/* for (int i = 0; i < platforms.size(); i++)
 		{
-			boolean check = testOnScreen(platforms.get(i));
-			System.out.println("Platform " + i + " is on the screen: " + check);
-		}
+			boolean check = testOnScreenBool(platforms.get(i));
+			System.out.print( index + "is " + i.getOnScreenStatus() + " ");
+		} */
 		
 		//test.update();
 		background.scroll();
 		for (Platform i : platforms)
 			i.scroll(1);
 		
+		//System.out.println(eTest.animFrame);
+		
 		for (int i = 0; i < platforms.size(); i++)
 		{
-			boolean check = testOnScreen(platforms.get(i));
+			boolean check = testOnScreenBool(platforms.get(i));
 			if (check == false)
 			{
 				removePlatform(i);
@@ -90,7 +97,7 @@ public class Main {
 	}
 	
 	//for testing how many platform are on screen
-	public static boolean testOnScreen(Platform p) {
+	public static boolean testOnScreenBool(Platform p) {
 		/* int index = 0;
 		for (Platform i : platforms) {
 			System.out.print( index + "is " + i.getOnScreen() + " ");
@@ -104,6 +111,15 @@ public class Main {
 			return false;
 		else
 			return true;
+	}
+	
+	public static void testOnScreen() {
+		int index = 0;
+		for (Platform i : platforms) {
+			System.out.print( index + "is " + i.getOnScreenStatus() + " ");
+			System.out.println("");
+			index++;
+		}
 	}
 	
 	public static void addPlatform(int difficulty)
@@ -133,7 +149,6 @@ public class Main {
 	//Main part of the program
 	public static void main(String[] args) {
 		setup();
-
 		
 		while (true) {
 			update();
