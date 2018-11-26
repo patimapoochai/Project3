@@ -13,14 +13,17 @@ public class Main {
 	static Background background;
 	static int difficulty;
 	static Enemy eTest;
+	static final String[] soundNames = {"Ninja Gaiden (NES) Music - Act 4 Part 2 loopable.wav", "jump.wav", "oof.wav"};
+	static SoundEffects sounds;
 
 	static final int MINUMUM_CHANCE = 85;
 
 	// All of the initialization goes here
 	public static void setup() {
 		EZ.initialize(RES_X, RES_Y);
+		sounds = new SoundEffects(soundNames);
 		// Background background = new Background("biggrid.jpg", RES_X, RES_Y);
-		player = new Player("jumping_left.png", "jumping_right.png", RES_X / 2, RES_Y / 2 - 300);
+		player = new Player("jumping_left.png", "jumping_right.png", RES_X / 2, RES_Y / 2 - 300, sounds);
 
 		// test = new Platform("platform.png", player,RES_X/2,RES_Y/2 + 200);
 
@@ -94,6 +97,7 @@ public class Main {
 			}
 		}
 
+		//updating the enemies only there is at least 1 in array list
 		if (enemies.size() > 0) {
 			for (int i = 0; i < enemies.size(); i++) {
 				enemies.get(i).update(player);
@@ -103,7 +107,9 @@ public class Main {
 				}
 			}
 		}
-		System.out.println(enemies.size());
+//		System.out.println(enemies.size());
+		
+		sounds.playOnCondition(0, Graphic.isPlayerAboveDeathLine(player));
 	}
 	//for testing how many platform are on screen
 	public static boolean testOnScreenBool(Platform p) {
@@ -158,11 +164,15 @@ public class Main {
 		platforms.remove(i);
 	}
 
+	//Use to spawn new enemy
 	public static void spawn(Platform platform) {
+		//Spawn chance calculation
 		if (rand.nextInt(99) + 1 > MINUMUM_CHANCE) {
+			//add an enemy into the array
 			Enemy temp = new Enemy("enemyPH.png", RES_X + 30, RES_Y + 30, platforms, true);
 			temp.spawnOnPlatform(platform);
 			enemies.add(temp);
+			//For testing
 			System.out.println("Spawned");
 		}
 	}

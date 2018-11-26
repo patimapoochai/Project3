@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 //the base class that would provide some common functions of graphics
+//Written by Patima Poochai
 public class Graphic {
 	protected int posX;
 	protected int posY;
@@ -23,7 +24,7 @@ public class Graphic {
 //	Must be run by sub-classes in updates
 	public void checks() {
 		isBelowScreenCheck();
-		isOnScreenCheck();
+		isOnScreenCheck(this.posX, this.posY);
 	}
 	
 	public int getX() {
@@ -68,7 +69,7 @@ public class Graphic {
 		return isBelowScreen;
 	}
 	
-	private void isOnScreenCheck() {
+	private void isOnScreenCheck(int posX,int posY) {
 		if ((posX > 0 - picture.getWidth()/2 && posX < Main.RES_X + picture.getWidth()/2) && (posY > 0 - picture.getHeight()/2 && posY < Main.RES_Y + picture.getHeight()/2)) {
 			isOnScreen = true;
 		} else {
@@ -79,4 +80,23 @@ public class Graphic {
 	public boolean getOnScreenStatus() {
 		return isOnScreen;
 	}
+	
+	static public boolean isPlayerOnScreen(Player player) {
+		//variables to make sure that the player is really off screen
+		int cushionX = player.getImage().getWidth()/2; int cushionY = player.getImage().getHeight()/2;
+		if ((player.getX() > 0 - cushionX && player.getX() < Main.RES_X + cushionX) && (player.getY() > 0 - cushionY && player.getY() < Main.RES_Y + cushionY)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	static public boolean isPlayerAboveDeathLine(Player player) {
+		if ((player.getY() < Main.RES_Y + player.getImage().getHeight()/2)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

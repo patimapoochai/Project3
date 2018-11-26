@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 //Enemies class
+//Written by Patima Poochai
 public class Enemy extends Graphic {
 	private ArrayList<Platform> platforms;
 	private Random random = new Random();
@@ -87,7 +88,7 @@ public class Enemy extends Graphic {
 		picture.translateTo(this.posX, this.posY);
 	}
 	
-	//modifying the points to make it 
+	//modifying the points to position it around the image
 	private void toggleAddSubtract(int value,int startIndex, int endIndex,boolean xOrY) {
 		value = value * 7/8/*always a fraction*/; // how close are the points to the borders of the image
 		
@@ -158,12 +159,14 @@ public class Enemy extends Graphic {
 		posX = posX + wanderingSpeed;
 	}
 	
+	//Check if an enemy should spawn on a platform
 	public void spawnOnPlatformCreation(Platform platform) {
 		if (random.nextInt(99)+1 > minimumForSuccess) {
 			spawnOnPlatform(platform);
 		}
 	}
 	
+	//remove the EZImage picture
 	public void remove() {
 		EZ.removeEZElement(picture);
 	}

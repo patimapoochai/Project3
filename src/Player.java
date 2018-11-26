@@ -1,4 +1,4 @@
-
+//Half Written by Patima Poochai
 public class Player {
 	// how fast the player falls (always positive)
 	private static final int GRAVITY = 1;
@@ -23,13 +23,15 @@ public class Player {
 
 	private int verticalVelocity;
 	
+	private SoundEffects sounds;
+	
 	//row is the left, middle, right points(left to right). col is x, y (top to bottom)
 	private int[][] feet = new int[3][2];
 
 	// this would keep the turn state. true is right, false is left
 	private boolean turnState;
 
-	Player(String imageLeft, String imageRight, int x, int y) {
+	Player(String imageLeft, String imageRight, int x, int y,SoundEffects soundList) {
 		// set position
 		posX = x;
 		posY = y;
@@ -37,6 +39,8 @@ public class Player {
 		turnState = true;
 
 		verticalVelocity = 10;
+		
+		sounds = soundList;
 
 		// add image
 		playerLeft = EZ.addImage(imageLeft, posX, posY);
@@ -74,6 +78,7 @@ public class Player {
 	public void damage(int damage) {
 		if (hurtTimer > COOLDOWN) {
 			damagePlayer(damage);
+			sounds.play(2);
 			hurtTimer = 0;
 		}
 		hurtTimer++;
@@ -156,6 +161,8 @@ public class Player {
 	public void bounce() {
 		// player will rise
 		verticalVelocity = -20;
+		//play a sound
+		sounds.play(1);
 	}
 
 	//decrease the bounce overtime
@@ -193,6 +200,14 @@ public class Player {
 	//return the y-axis length from middle to bottom point of the image
 	public int getLegsLength() {
 		return playerLeft.getHeight()/2;
+	}
+	
+	public int getX() {
+		return posX;
+	}
+	
+	public int getY() {
+		return posY;
 	}
 
 }
