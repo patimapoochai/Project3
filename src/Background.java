@@ -17,10 +17,10 @@ public class Background
 		this.wallpaper2.pushToBack();
 	}
 	
-	public void scroll()
+	public void scroll(int scrollSpeed)
 	{
-		this.wallpaper.translateBy(0, 1);
-		this.wallpaper2.translateBy(0, 1);
+		this.wallpaper.translateBy(0, scrollSpeed);
+		this.wallpaper2.translateBy(0, scrollSpeed);
 		if (this.wallpaper.getYCenter() >= this.RES_Y)
 			this.wallpaper.translateTo(this.RES_X/2, 0);
 		if (this.wallpaper.getYCenter() >= this.RES_Y)

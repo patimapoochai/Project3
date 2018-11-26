@@ -12,6 +12,7 @@ public class Main {
 	static Random rand = new Random();
 	static Background background;
 	static int difficulty;
+	static int scrollSpeed = 1;
 	static Enemy eTest;
 	static final String[] soundNames = {"Ninja Gaiden (NES) Music - Act 4 Part 2 loopable.wav", "jump.wav", "oof.wav"};
 	static SoundEffects sounds;
@@ -80,9 +81,17 @@ public class Main {
 		} */
 		
 		//test.update();
-		background.scroll();
+		background.scroll(scrollSpeed);
 		for (Platform i : platforms)
-			i.scroll(1);
+			i.scroll(scrollSpeed);
+		
+		if (player.getPlatformsJumped() > 50)
+			difficulty = 100;
+		else
+		{
+			difficulty = player.getPlatformsJumped() * 2;
+			scrollSpeed = (difficulty / 10) + 1;
+		}
 		
 		//System.out.println(eTest.animFrame);
 		

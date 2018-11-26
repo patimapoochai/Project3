@@ -25,6 +25,8 @@ public class Player {
 	
 	private SoundEffects sounds;
 	
+	private int platformsJumped = 0;
+	
 	//row is the left, middle, right points(left to right). col is x, y (top to bottom)
 	private int[][] feet = new int[3][2];
 
@@ -89,6 +91,12 @@ public class Player {
 		posX = x;
 		posY = y;
 		setImagePosition(x, y);
+	}
+	
+	// get the number of platforms jumped
+	public int getPlatformsJumped()
+	{
+		return this.platformsJumped;
 	}
 
 	// set the image to certain x and y value
@@ -161,8 +169,7 @@ public class Player {
 	public void bounce() {
 		// player will rise
 		verticalVelocity = -20;
-		//play a sound
-		sounds.play(1);
+		platformsJumped++;
 	}
 
 	//decrease the bounce overtime

@@ -10,7 +10,6 @@ public class Graphic {
 	protected boolean isBelowScreen;
 	protected boolean isOnScreen;
 	
-	
 	//the image
 	protected EZImage picture;
 	
@@ -98,5 +97,4 @@ public class Graphic {
 			return false;
 		}
 	}
-
 }

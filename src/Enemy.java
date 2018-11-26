@@ -64,7 +64,6 @@ public class Enemy extends Graphic {
 		spawnOnPlatform(platforms.get(index));
 	}
 	
-	
 	//will make the input of scroll() such that the enemy float up and down
 	private double scrollWithAnimation(int length,int animSpeed) {
 		if (animFrame > 10) {
