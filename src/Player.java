@@ -1,4 +1,4 @@
-
+//Half Written by Patima Poochai
 public class Player {
 	// how fast the player falls (always positive)
 	private static final int GRAVITY = 1;
@@ -6,6 +6,8 @@ public class Player {
 	private static final int RATE = 2;
 	//player strafe speed
 	private static final int SPEED = 20;
+	//player invincibility time
+	private static final int COOLDOWN = 50;
 
 	// positions
 	private int posX;
@@ -15,8 +17,15 @@ public class Player {
 	// images
 	private EZImage playerLeft;
 	private EZImage playerRight;
+	
+	private int health = 3;
+	private int hurtTimer = 50;
 
 	private int verticalVelocity;
+	
+	private SoundEffects sounds;
+	
+	private int platformsJumped = 0;
 	
 	//row is the left, middle, right points(left to right). col is x, y (top to bottom)
 	private int[][] feet = new int[3][2];
@@ -24,7 +33,7 @@ public class Player {
 	// this would keep the turn state. true is right, false is left
 	private boolean turnState;
 
-	Player(String imageLeft, String imageRight, int x, int y) {
+	Player(String imageLeft, String imageRight, int x, int y,SoundEffects soundList) {
 		// set position
 		posX = x;
 		posY = y;
@@ -32,6 +41,8 @@ public class Player {
 		turnState = true;
 
 		verticalVelocity = 10;
+		
+		sounds = soundList;
 
 		// add image
 		playerLeft = EZ.addImage(imageLeft, posX, posY);
@@ -50,6 +61,29 @@ public class Player {
 		fall();
 		verticalVelocityUpdate();
 		bottomPoints();
+//		System.out.println("PlayerHP: " + health);
+//		System.out.println("Player: " + posX + ", " + posY);
+	}
+	
+	public EZImage getImage() {
+		return playerLeft;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	private void damagePlayer(int damage) {
+		health = health - damage;
+	}
+	
+	public void damage(int damage) {
+		if (hurtTimer > COOLDOWN) {
+			damagePlayer(damage);
+			sounds.play(2);
+			hurtTimer = 0;
+		}
+		hurtTimer++;
 	}
 
 	// set x and y position
@@ -57,6 +91,12 @@ public class Player {
 		posX = x;
 		posY = y;
 		setImagePosition(x, y);
+	}
+	
+	// get the number of platforms jumped
+	public int getPlatformsJumped()
+	{
+		return this.platformsJumped;
 	}
 
 	// set the image to certain x and y value
@@ -66,10 +106,12 @@ public class Player {
 	}
 
 	// is the player touching the x and y point?
-	boolean isIn(int x, int y) {
+	boolean isPointInPlayer(int x, int y) {
 		boolean state = false;
 		if (playerLeft.isPointInElement(x, y) || playerRight.isPointInElement(x, y)) {
 			state = true;
+		} else {
+			state = false;
 		}
 		return state;
 	}
@@ -127,6 +169,7 @@ public class Player {
 	public void bounce() {
 		// player will rise
 		verticalVelocity = -20;
+		platformsJumped++;
 	}
 
 	//decrease the bounce overtime
@@ -164,6 +207,14 @@ public class Player {
 	//return the y-axis length from middle to bottom point of the image
 	public int getLegsLength() {
 		return playerLeft.getHeight()/2;
+	}
+	
+	public int getX() {
+		return posX;
+	}
+	
+	public int getY() {
+		return posY;
 	}
 
 }
