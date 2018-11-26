@@ -23,8 +23,8 @@ public class Background
 		this.wallpaper2.translateBy(0, scrollSpeed);
 		if (this.wallpaper.getYCenter() >= this.RES_Y)
 			this.wallpaper.translateTo(this.RES_X/2, 0);
-		if (this.wallpaper.getYCenter() >= this.RES_Y)
-			this.wallpaper.translateTo(this.RES_X/2, 0);
+		if (this.wallpaper2.getYCenter() >= this.RES_Y)
+			this.wallpaper2.translateTo(this.RES_X/2, 0);
 	}
 	
 	public void replacePlatform(ArrayList<Platform> platforms)
