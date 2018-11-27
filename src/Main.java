@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.sun.glass.events.KeyEvent;
 //written by the three musketeers
 public class Main {
 	// don't restrict these variables
@@ -32,7 +33,6 @@ public class Main {
 
 	// All of the initialization goes here
 	public static void setup() {
-		//adds heart images
 		heart1 = EZ.addImage("health.png", 25, 30);
 		heart2 = EZ.addImage("health.png", 75, 30);
 		heart3 = EZ.addImage("health.png", 125, 30);
@@ -119,7 +119,6 @@ public class Main {
 			}
 		}
 //		System.out.println(enemies.size());
-		//checks for character health and removes hearts when damaged or kills the character when all health is depleted
 		if (player.getHealth() == 2) {
 			heart3.hide();
 		}
@@ -131,7 +130,6 @@ public class Main {
 			sounds.play(3);
 		}
 		sounds.playOnCondition(0, Graphic.isPlayerAboveDeathLine(player));
-		//checks for game over and plays death sound when character dies
 		if(Graphic.isPlayerAboveDeathLine(player) == false) {
 			play = 2;
 			sounds.play(3);
@@ -206,34 +204,28 @@ public class Main {
 
 	// Main part of the program
 	public static void main(String[] args) {
-		//creates titlescreen and plays music
 		EZ.initialize(RES_X, RES_Y);
 		titleback = EZ.addImage("titlescreenback.png", RES_X/2, RES_Y/2);
 		title = EZ.addImage("titlescreen.png", RES_X/2, RES_Y/2);
 		opening.play();
-		//checks for whether game has started and hides titlescreen
 		while(play == 0) {
 			
 			if (EZInteraction.isKeyDown(KeyEvent.VK_SPACE)) {
 				title.hide();
 				titleback.hide();
-				//runs setup function
 				setup();
 				play = 1;
 			}
 			System.out.println(play); //somehow this makes the program work, not sure why, 
 									  //but the moment it is removed, the program no longer plays
 		}
-		//stops title screen music
 		opening.stop();
-		//sets the game to play
 		while (play == 1) {
 			update();
 
 			// Do not change the refresh
 			EZ.refreshScreen();
 		}
-		//adds game over screen and plays game over music
 		if (play == 2) {
 			gameOver = EZ.addImage("gameover.png", RES_X/2, RES_Y/2);
 			sounds.play(4);
