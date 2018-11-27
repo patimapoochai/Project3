@@ -2,7 +2,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.sun.glass.events.KeyEvent;
-//written by the three musketeers
+/*written by Patima, Alex and Raymond
+To play the game, press the run project button. When window shows up, press space to start the game. 
+Control the character by pressing the A(Move left) and D(Move right) keys on your keyboard
+Jump from platform to platform and avoid shurikens or you willtake damage.
+Taking 3 hits, or falling to the bottom kills you.
+Patima created the player, enemy and sound classes
+Alex created the platform and background classes
+Raymond created the assets and did general bug fixing for the classes
+*/
 public class Main {
 	// don't restrict these variables
 	static final int RES_X = 1024;
