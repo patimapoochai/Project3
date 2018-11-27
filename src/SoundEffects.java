@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 // this class is basically an array list of sounds
 // all the array loading is done in here instead of the main class for cleanliness
-// Written by Patima Poochai
+// Channeled by Patima Poochai
 public class SoundEffects {
 	//array list of sounds
 	ArrayList<Sound> sounds;
