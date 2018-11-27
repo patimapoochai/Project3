@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.sun.glass.events.KeyEvent;
 //written by the three musketeers
 public class Main {
 	// don't restrict these variables

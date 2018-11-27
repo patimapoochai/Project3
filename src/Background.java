@@ -12,7 +12,7 @@ public class Background
 		this.RES_X = RES_X;
 		this.RES_Y = RES_Y;
 		this.wallpaper = EZ.addImage(file, this.RES_X/2, this.RES_Y/2);
-		this.wallpaper2 = EZ.addImage(file, this.RES_X/2, -this.RES_Y);
+		this.wallpaper2 = EZ.addImage(file, this.RES_X/2, -this.RES_Y/2);
 		this.wallpaper.pushToBack();
 		this.wallpaper2.pushToBack();
 	}

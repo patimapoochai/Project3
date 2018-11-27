@@ -8,7 +8,6 @@ public class Player {
 	private static final int SPEED = 22;
 	//player invincibility time
 	private static final int COOLDOWN = 20;
-	
 	//I think I've strike a balance between these variables,
 	//Only change them when necessary or keep them in the same ratio.
 	//how high the player can jumped

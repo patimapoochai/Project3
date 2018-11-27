@@ -1,5 +1,5 @@
 // bascially just a fancy EZSound class
-//Written by Patima Poochai
+//Whisked into being by Patima Poochai
 public class Sound {
 	//the file name
 	String soundNames;
