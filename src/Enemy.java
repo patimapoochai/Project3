@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 //Enemies class
-//Written by Patima Poochai
+//Hacked by Patima Poochai
 public class Enemy extends Graphic {
 	private ArrayList<Platform> platforms;
 	private Random random = new Random();
@@ -21,7 +21,8 @@ public class Enemy extends Graphic {
 	
 	//
 	protected boolean wandering;
-	protected int wanderingSpeed = 7;
+	protected static final int CONSTANT_SPEED = 5;
+	protected int wanderingDirection = 1;
 	//constructor if you want a specific coordinate
 	Enemy(String filename,int x,int y,ArrayList<Platform> platformArray, boolean wanderingState){
 		super(filename, x, y);
@@ -43,7 +44,7 @@ public class Enemy extends Graphic {
 	}
 	
 	public void update(Player player) {
-		scroll(1);
+		scroll(Main.scrollSpeed);
 		if (wandering) {
 			wander();
 		}
@@ -152,10 +153,10 @@ public class Enemy extends Graphic {
 	//the enemy will move from left to right
 	protected void wander() {
 		if (posX > 1024 || posX < 0) {
-			wanderingSpeed = -wanderingSpeed;
+			wanderingDirection = -wanderingDirection;
 		}
 		
-		posX = posX + wanderingSpeed;
+		posX = posX + (wanderingDirection * (Main.scrollSpeed + CONSTANT_SPEED));
 	}
 	
 	//Check if an enemy should spawn on a platform

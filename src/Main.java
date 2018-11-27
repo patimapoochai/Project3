@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
-
+//written by the three musketeers
 public class Main {
-	// don't restric these variables
+	// don't restrict these variables
 	static final int RES_X = 1024;
 	static final int RES_Y = 768;
 	static Player player;

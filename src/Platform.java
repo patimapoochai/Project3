@@ -60,11 +60,9 @@ public class Platform {
 	private boolean feetTouching(int[][] array) { //what a lewd name huh?
 		boolean state = false;
 		
-		for (int col = 0;col < 3;col++) {
+		for (int col = 0;col < 5;col++) {
 			if (picture.isPointInElement(array[col][0], array[col][1])) {
 				state = true;
-			} else {
-				state = false;
 			}
 		}
 		

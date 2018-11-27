@@ -1,14 +1,23 @@
-//Half Written by Patima Poochai
+//(2/sqrt(10))^2 Written by Patima Poochai
 public class Player {
 	// how fast the player falls (always positive)
 	private static final int GRAVITY = 1;
 	// overall bounce multiply-er (always positive)
 	private static final int RATE = 2;
 	//player strafe speed
-	private static final int SPEED = 20;
+	private static final int SPEED = 22;
 	//player invincibility time
 	private static final int COOLDOWN = 50;
-
+	
+	//I think I've strike a balance between these variables,
+	//Only change them when necessary or keep them in the same ratio.
+	//how high the player can jumped
+	private static int maxJumpHeight = 13;
+	//how fast the player can fall
+	private static int terminalVelocity = 15;
+	//how fast the player need to fall for them to jump
+	private static int minimumFallSpeed = 2;
+	
 	// positions
 	private int posX;
 	private int posY;
@@ -28,7 +37,9 @@ public class Player {
 	private int platformsJumped = 0;
 	
 	//row is the left, middle, right points(left to right). col is x, y (top to bottom)
-	private int[][] feet = new int[3][2];
+	private int[][] feet = new int[5][2];
+	//how close this point can be to the border of the image
+	private static int feetPointsCushion = 9/10; //always a fraction (0 < x < 1)
 
 	// this would keep the turn state. true is right, false is left
 	private boolean turnState;
@@ -61,6 +72,7 @@ public class Player {
 		fall();
 		verticalVelocityUpdate();
 		bottomPoints();
+		wrapAround();
 //		System.out.println("PlayerHP: " + health);
 //		System.out.println("Player: " + posX + ", " + posY);
 	}
@@ -167,20 +179,24 @@ public class Player {
 	
 	//bounce the player
 	public void bounce() {
+		//if the play falling speed is greater than minimumFallSpeed
+		if (verticalVelocity > Main.scrollSpeed + minimumFallSpeed) {
 		// player will rise
-		verticalVelocity = -20;
+		verticalVelocity = -(Main.scrollSpeed/2 + maxJumpHeight);
+		//increase the number of platform jumped
 		platformsJumped++;
+		}
 	}
 
 	//decrease the bounce overtime
 	private void verticalVelocityUpdate() {
 		// at terminal velocity
-		if (verticalVelocity < 10) {
+		if (verticalVelocity < Main.scrollSpeed/2 + terminalVelocity) {
 			// the gravity will overtime pull player down
 			verticalVelocity = verticalVelocity + GRAVITY;
 		}
 	}
-
+	
 	//newton's law or something
 	private void fall() {
 		posY = posY + (RATE * verticalVelocity);
@@ -193,10 +209,17 @@ public class Player {
 		feet[0][1] = posY + (playerLeft.getHeight()/2);
 		
 		feet[1][0] = posX + (playerLeft.getWidth()/2);
-		feet[1][0] = posY + (playerLeft.getHeight()/2);
+		feet[1][1] = posY + (playerLeft.getHeight()/2);
 		
 		feet[2][0] = posX;
 		feet[2][1] = posY + (playerLeft.getHeight()/2);
+		
+		//extra points inside the player
+		feet[3][0] = posX - feetPointsCushion * (playerLeft.getWidth()/2);
+		feet[3][1] = posY + feetPointsCushion * (playerLeft.getHeight()/2);
+		
+		feet[4][0] = posX + feetPointsCushion * (playerLeft.getWidth()/2);
+		feet[4][1] = posY + feetPointsCushion * (playerLeft.getHeight()/2);
 	}
 	
 	//return the bottom points array
@@ -215,6 +238,14 @@ public class Player {
 	
 	public int getY() {
 		return posY;
+	}
+	
+	public void wrapAround() {
+		if (posX > Main.RES_X) {
+			setPosition(1, posY);
+		} else if (posX < 0){
+			setPosition(Main.RES_X,posY);
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 //the base class that would provide some common functions of graphics
-//Written by Patima Poochai
+//Loved by Patima Poochai
 public class Graphic {
 	protected int posX;
 	protected int posY;
