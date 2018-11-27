@@ -7,8 +7,7 @@ public class Player {
 	//player strafe speed
 	private static final int SPEED = 22;
 	//player invincibility time
-	private static final int COOLDOWN = 50;
-	
+	private static final int COOLDOWN = 20;
 	//I think I've strike a balance between these variables,
 	//Only change them when necessary or keep them in the same ratio.
 	//how high the player can jumped
@@ -28,7 +27,7 @@ public class Player {
 	private EZImage playerRight;
 	
 	private int health = 3;
-	private int hurtTimer = 50;
+	private int hurtTimer = 20;
 
 	private int verticalVelocity;
 	
@@ -247,5 +246,4 @@ public class Player {
 			setPosition(Main.RES_X,posY);
 		}
 	}
-
 }

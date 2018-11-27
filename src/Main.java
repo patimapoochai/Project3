@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+
 //written by the three musketeers
 public class Main {
 	// don't restrict these variables
@@ -14,17 +15,29 @@ public class Main {
 	static int difficulty;
 	static int scrollSpeed = 1;
 	static Enemy eTest;
-	static final String[] soundNames = {"Ninja Gaiden (NES) Music - Act 4 Part 2 loopable.wav", "jump.wav", "oof.wav"};
+	static final String[] soundNames = {"Ninja Gaiden (NES) Music - Act 4 Part 2 loopable.wav", "jump.wav", "damage.wav", "death.wav", "determination.wav"};
 	static SoundEffects sounds;
+	
+	static int play = 0;
+	
+	static EZImage title;
+	static EZImage titleback; 
+	static EZImage heart3;
+	static EZImage heart2;
+	static EZImage heart1;
+	static EZImage gameOver;
+	static EZSound opening = EZ.addSound("Ninja Gaiden (NES) Music - Act 2 Part 1 loopable.wav");
 
 	static final int MINUMUM_CHANCE = 85;
 
 	// All of the initialization goes here
 	public static void setup() {
-		EZ.initialize(RES_X, RES_Y);
+		heart1 = EZ.addImage("health.png", 25, 30);
+		heart2 = EZ.addImage("health.png", 75, 30);
+		heart3 = EZ.addImage("health.png", 125, 30);
 		sounds = new SoundEffects(soundNames);
 		// Background background = new Background("biggrid.jpg", RES_X, RES_Y);
-		player = new Player("jumping_left.png", "jumping_right.png", RES_X / 2, RES_Y / 2 - 300, sounds);
+		player = new Player("jumping_right.png", "jumping_left.png", RES_X / 2, RES_Y / 2 - 300, sounds);
 
 		// test = new Platform("platform.png", player,RES_X/2,RES_Y/2 + 200);
 
@@ -69,18 +82,6 @@ public class Main {
 		for (Platform i : platforms) {
 			i.update();
 		}
-
-		//testOnScreen
-		
-//		eTest.update(player);
-		
-		/* for (int i = 0; i < platforms.size(); i++)
-		{
-			boolean check = testOnScreenBool(platforms.get(i));
-			System.out.print( index + "is " + i.getOnScreenStatus() + " ");
-		} */
-		
-		//test.update();
 		background.scroll(scrollSpeed + 1);
 		for (Platform i : platforms)
 			i.scroll(scrollSpeed);
@@ -117,8 +118,21 @@ public class Main {
 			}
 		}
 //		System.out.println(enemies.size());
-		
+		if (player.getHealth() == 2) {
+			heart3.hide();
+		}
+		else if (player.getHealth() == 1) {
+			heart2.hide();
+		}
+		else if (player.getHealth() == 0){
+			play = 2;
+			sounds.play(3);
+		}
 		sounds.playOnCondition(0, Graphic.isPlayerAboveDeathLine(player));
+		if(Graphic.isPlayerAboveDeathLine(player) == false) {
+			play = 2;
+			sounds.play(3);
+		}
 	}
 	//for testing how many platform are on screen
 	public static boolean testOnScreenBool(Platform p) {
@@ -179,7 +193,7 @@ public class Main {
 		//Spawn chance calculation
 		if (rand.nextInt(99) + 1 > MINUMUM_CHANCE) {
 			//add an enemy into the array
-			Enemy temp = new Enemy("enemyPH.png", RES_X + 30, RES_Y + 30, platforms, true);
+			Enemy temp = new Enemy("shuriken.png", RES_X + 30, RES_Y + 30, platforms, true);
 			temp.spawnOnPlatform(platform);
 			enemies.add(temp);
 			//For testing
@@ -189,13 +203,31 @@ public class Main {
 
 	// Main part of the program
 	public static void main(String[] args) {
-		setup();
-
-		while (true) {
+		EZ.initialize(RES_X, RES_Y);
+		titleback = EZ.addImage("titlescreenback.png", RES_X/2, RES_Y/2);
+		title = EZ.addImage("titlescreen.png", RES_X/2, RES_Y/2);
+		opening.play();
+		while(play == 0) {
+			
+			if (EZInteraction.isKeyDown(KeyEvent.VK_SPACE)) {
+				title.hide();
+				titleback.hide();
+				setup();
+				play = 1;
+			}
+			System.out.println(play); //somehow this makes the program work, not sure why, 
+									  //but the moment it is removed, the program no longer plays
+		}
+		opening.stop();
+		while (play == 1) {
 			update();
 
 			// Do not change the refresh
 			EZ.refreshScreen();
+		}
+		if (play == 2) {
+			gameOver = EZ.addImage("gameover.png", RES_X/2, RES_Y/2);
+			sounds.play(4);
 		}
 
 	}
