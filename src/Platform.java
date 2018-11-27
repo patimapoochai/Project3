@@ -1,3 +1,5 @@
+// Here be the domain of a Mr. Alexander Jones
+
 public class Platform {
 	protected int posX;
 	protected int posY;
