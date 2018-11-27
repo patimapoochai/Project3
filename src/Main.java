@@ -29,7 +29,7 @@ public class Main {
 		// test = new Platform("platform.png", player,RES_X/2,RES_Y/2 + 200);
 
 		for (int i = 100; i < 600; i = i + 100) {
-			Platform platform = new Platform("platform2.png", player, rand.nextInt(RES_Y - 30) + 30, i);
+			Platform platform = new Platform("Platform.png", player, rand.nextInt(RES_Y - 30) + 30, i);
 			platforms.add(platform);
 		}
 
@@ -50,7 +50,7 @@ public class Main {
 		// spawn player on top of the lowest platform platform
 		player.setPosition(lowestX, lowestY - (player.getLegsLength() + 20));
 
-		background = new Background("biggrid.jpg", RES_X, RES_Y);
+		background = new Background("clouds.png", RES_X, RES_Y);
 
 		// addPlatform(10, 15);
 		// addPlatform(20, 25);
@@ -81,15 +81,15 @@ public class Main {
 		} */
 		
 		//test.update();
-		background.scroll(scrollSpeed);
+		background.scroll(scrollSpeed + 1);
 		for (Platform i : platforms)
 			i.scroll(scrollSpeed);
 		
-		if (player.getPlatformsJumped() > 50)
+		if (difficulty > 100)
 			difficulty = 100;
 		else
 		{
-			difficulty = player.getPlatformsJumped() * 2;
+			// difficulty = player.getPlatformsJumped() * 2;
 			scrollSpeed = (difficulty / 10) + 1;
 		}
 		
@@ -156,7 +156,7 @@ public class Main {
 		// int offset = upperBound - lowerBound; // distance between the two
 		int y = rand.nextInt(difficulty); // will generate a number between zero and the maximum offset
 		int x = rand.nextInt(RES_X); // generate a random new platform
-		Platform platform = new Platform("platform2.png", player, x, 0 - y);
+		Platform platform = new Platform("Platform.png", player, x, 0 - y);
 		platforms.add(platform);
 		System.out.println(platform.getPosX());
 		System.out.println(platform.getPosY());
@@ -171,6 +171,7 @@ public class Main {
 	{
 		platforms.get(i).close();
 		platforms.remove(i);
+		difficulty += 3;
 	}
 
 	//Use to spawn new enemy
