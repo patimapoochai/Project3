@@ -272,6 +272,7 @@ public class Main {
 		{
 			if (EZInteraction.isKeyDown(KeyEvent.VK_SPACE))
 			{
+				sounds.stop(4);
 				String[] blank = {};
 				play = 0;
 				platforms = new ArrayList<Platform>();
