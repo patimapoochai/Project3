@@ -17,7 +17,7 @@ public class Enemy extends Graphic {
 	//keep track of direction of an animation
 	private int idleDirection = 1;
 	
-	private final int minimumForSuccess = 70;
+	private int minimumForSuccess = 70;
 	
 	//
 	protected boolean wandering;
@@ -44,7 +44,13 @@ public class Enemy extends Graphic {
 	}
 	
 	public void update(Player player) {
-		scroll(Main.scrollSpeed);
+		if (Main.constantSpeedDemo) {
+			scroll(1);
+//			minimumForSuccess = 100;
+		} else {
+			scroll(Main.scrollSpeed);
+		}
+		
 		if (wandering) {
 			wander();
 		}

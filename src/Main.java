@@ -28,6 +28,9 @@ public class Main {
 	static EZImage heart1;
 	static EZImage gameOver;
 	static EZSound opening = EZ.addSound("Ninja Gaiden (NES) Music - Act 2 Part 1 loopable.wav");
+	
+	static boolean hardcore = false;
+	static boolean constantSpeedDemo = false;
 
 	static final int MINUMUM_CHANCE = 85;
 
@@ -88,12 +91,26 @@ public class Main {
 		for (Platform i : platforms)
 			i.scroll(scrollSpeed);
 		
-		if (difficulty > 100)
-			difficulty = 100;
-		else
-		{
-			// difficulty = player.getPlatformsJumped() * 2;
-			scrollSpeed = (difficulty / 10) + 1;
+		if (hardcore) {
+			scrollSpeed = (difficulty/10) + 1;
+		} else {
+			if (difficulty > 100)
+				difficulty = 100;
+			else
+			{
+				// difficulty = player.getPlatformsJumped() * 2;
+				scrollSpeed = (difficulty / 10) + 1;
+			}
+		}
+		
+		//for demonstration purposes
+		if (EZInteraction.isKeyDown('l')) {
+			constantSpeedDemo = true;
+			sounds.play(2);
+		}
+		if (EZInteraction.isKeyDown('k')) {
+			hardcore = true;
+			sounds.play(2);
 		}
 		
 		//System.out.println(eTest.animFrame);
@@ -204,14 +221,18 @@ public class Main {
 			System.out.println("Spawned");
 		}
 	}
-
-	// Main part of the program
-	public static void main(String[] args) {
-		EZ.initialize(RES_X, RES_Y);
+	
+	static void titleScreen() {
 		//creates title screen and plays opening sound
 		titleback = EZ.addImage("titlescreenback.png", RES_X/2, RES_Y/2);
 		title = EZ.addImage("titlescreen.png", RES_X/2, RES_Y/2);
 		opening.play();
+	}
+
+	// Main part of the program
+	public static void main(String[] args) {
+		EZ.initialize(RES_X, RES_Y);
+		titleScreen();
 		while(play == 0) {
 			//starts setup on game start
 			if (EZInteraction.isKeyDown(KeyEvent.VK_SPACE)) {
@@ -225,6 +246,7 @@ public class Main {
 		}
 		//stops music and plays game
 		opening.stop();
+		
 		while (play == 1) {
 			update();
 
