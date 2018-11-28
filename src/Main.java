@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.sun.glass.events.KeyEvent;
+//import com.sun.glass.events.KeyEvent;
+
+import java.awt.event.*;
 /*written by Patima, Alex and Raymond
 To play the game, press the run project button. When window shows up, press space to start the game. 
 Control the character by pressing the A(Move left) and D(Move right) keys on your keyboard
@@ -265,6 +267,20 @@ public class Main {
 		if (play == 2) {
 			gameOver = EZ.addImage("gameover.png", RES_X/2, RES_Y/2);
 			sounds.play(4);
+		}
+		while (true)
+		{
+			if (EZInteraction.isKeyDown(KeyEvent.VK_SPACE))
+			{
+				String[] blank = {};
+				play = 0;
+				platforms = new ArrayList<Platform>();
+				difficulty = 1;
+				scrollSpeed = 1;
+				hardcore = false;
+				constantSpeedDemo = false;
+				main(blank);
+			}
 		}
 
 	}
